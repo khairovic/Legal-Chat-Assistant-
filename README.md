@@ -35,16 +35,19 @@ The whole setup is done by two scripts. Count about 20 minutes the first time, p
 Open PowerShell in the folder where you want the project, then type:
 
 ```powershell
+git config --global core.longpaths true
 git lfs install
-git clone --branch integration/agents https://github.com/eyahamdidev/Law_Rag.git
-cd Law_Rag
+git clone https://github.com/khairovic/Legal-Chat-Assistant-.git Legal-Chat-Assistant
+cd Legal-Chat-Assistant
 ```
+
+The first line lets Windows handle the long file names in the document folders; without it, some files are not created.
 
 ### Step 3. Run the installer
 
-Double-click **`install.cmd`** in the `Law_Rag` folder.
+Double-click **`install.cmd`** in the `Legal-Chat-Assistant` folder.
 
-Or, in PowerShell inside the `Law_Rag` folder, type:
+Or, in PowerShell inside the `Legal-Chat-Assistant` folder, type:
 
 ```powershell
 .\install.cmd
@@ -68,7 +71,7 @@ If your PC has an NVIDIA graphics card, `.\install.cmd -Gpu` makes the search fa
 
 The app searches an index built from the PDFs. The index is too large for GitHub, so you need to get it one of two ways:
 
-- **Download it** (fastest): get the ready-made index here: https://drive.google.com/file/d/1OsrJigybswy95YKz83rcdXMQZk_WVmGj/view?usp=sharing (107 MB). Right-click the zip, choose **Extract All…**, and pick your `Law_Rag` folder as the destination. You should then have the folders `Law_Rag\data\index` and `Law_Rag\data\qdrant`. If the installer offers to build the index, answer `n`.
+- **Download it** (fastest): get the ready-made index here: https://drive.google.com/file/d/1OsrJigybswy95YKz83rcdXMQZk_WVmGj/view?usp=sharing (107 MB). Right-click the zip, choose **Extract All…**, and pick your `Legal-Chat-Assistant` folder as the destination. You should then have the folders `Legal-Chat-Assistant\data\index` and `Legal-Chat-Assistant\data\qdrant`. If the installer offers to build the index, answer `n`.
 - **Or build it**: answer `y` when the installer asks, or run `.\install.cmd -BuildIndex`. It takes about **1 hour on a normal PC** (about 10 minutes with a GPU). You only do it once.
 
 ### Step 5. Start the app
@@ -131,9 +134,9 @@ To stop: `.\stop.cmd -WithN8n`.
 | Problem | What to do |
 | --- | --- |
 | The installer says a Python version is missing | Install Python 3.12 with **"Add python.exe to PATH"** ticked, open a **new** PowerShell window, and run `.\install.cmd` again. |
-| Typing `run.cmd` gives an error about a path that is not your `Law_Rag` folder | Type `.\run.cmd` (with `.\`), or double-click the file. |
+| Typing `run.cmd` gives an error about a path that is not your `Legal-Chat-Assistant` folder | Type `.\run.cmd` (with `.\`), or double-click the file. |
 | Answers are lists of raw passages instead of real answers | The Groq/Gemini keys are missing or their free limit is used up. Open http://127.0.0.1:8000/api/health/llm to see the status of each provider. The page never shows the keys. To change a key, edit `.env` and restart with `.\stop.cmd` then `.\run.cmd`. |
-| Every answer says nothing was found | The search index is missing or in the wrong place: see step 4. Check that `Law_Rag\data\qdrant\meta.json` exists (not `Law_Rag\data\data\qdrant\...`). |
+| Every answer says nothing was found | The search index is missing or in the wrong place: see step 4. Check that `Legal-Chat-Assistant\data\qdrant\meta.json` exists (not `Legal-Chat-Assistant\data\data\qdrant\...`). |
 | One of the three windows shows an error | Read its last lines. Running `.\run.cmd` again restarts only what stopped. |
 | Questions asked quickly one after another are slow | Groq's free plan limits how many words per minute each model can process. Wait about a minute between long questions. |
 | The first question is slow | That is normal: the models are loading. The next ones are faster. |
